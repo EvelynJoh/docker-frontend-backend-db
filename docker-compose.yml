@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   web:
-    build: ./frontend
+    image: 497371273566.dkr.ecr.eu-central-1.amazonaws.com/docker-frontend:latest
     depends_on:
       - api
     ports:
@@ -9,7 +9,7 @@ services:
     networks:
       - network-backend
   api:
-    build: ./backend
+    image: 497371273566.dkr.ecr.eu-central-1.amazonaws.com/docker-backend:latest
     depends_on:
       - mongo
     ports:
