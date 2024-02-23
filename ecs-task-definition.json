@@ -1,0 +1,56 @@
+{
+    "family": "meine-anwendung",
+    "containerDefinitions": [
+      {
+        "name": "web",
+        "image": "497371273566.dkr.ecr.eu-central-1.amazonaws.com/docker-frontend:latest",
+        "cpu": 256,
+        "memory": 512,
+        "essential": true,
+        "portMappings": [
+          {
+            "containerPort": 3000,
+            "hostPort": 3000
+          }
+        ]
+      },
+      {
+        "name": "api",
+        "image": "497371273566.dkr.ecr.eu-central-1.amazonaws.com/docker-backend:latest",
+        "cpu": 256,
+        "memory": 512,
+        "essential": true,
+        "portMappings": [
+          {
+            "containerPort": 3001,
+            "hostPort": 3001
+          }
+        ],
+        "secrets": [
+          {
+            "name": "GITHUB_OAUTH_TOKEN",
+            "valueFrom": "arn:aws:secretsmanager:eu-central-1:497371273566:secret:github/oauth_token-PXgaFb"
+          }
+        ]
+      },
+      {
+        "name": "mongo",
+        "image": "mongo",
+        "cpu": 256,
+        "memory": 512,
+        "essential": true,
+        "portMappings": [
+          {
+            "containerPort": 27017,
+            "hostPort": 27017
+          }
+        ]
+      }
+    ],
+    "requiresCompatibilities": ["FARGATE"],
+    "networkMode": "awsvpc",
+    "memory": "1024",
+    "cpu": "512",
+    "executionRoleArn": "arn:aws:iam::497371273566:role/ecsTaskExecutionRole"
+  }
+  
